@@ -1,0 +1,90 @@
+/*페이지 전체의 글꼴 나눔고딕으로 설정(부트스트랩에 포함)*/
+* { font-family: NanumGothic, 'Malgun Gothic'; }
+
+/*고정네비게이션바를 피하기 위해 위로 마진*/
+body { padding-top: 50px; }
+
+/*안쪽 콘텐츠 부분*/
+.innercontainer {
+  padding: 40px 15px;
+  text-align: left;
+}
+
+[class="collapse in"]{margin-top:10px;}
+
+/*index.php부분에서의 점보트론 부분*/
+#jumbo_main{
+    background-color: #566270 !important;
+    background-image: url(../img/index_main.jpg);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-left: 13%;
+    padding-right: 13%;
+    color: white;
+}
+/*인용문*/
+blockquote{
+    border: 2px dashed #aeaeae;
+    border-left: 5px solid #14ed39;
+    width: fit-content;
+}
+/*벽돌깨기 캔버스*/
+canvas {
+    background: #FFE4E1;
+    display: block;
+    margin: 0 auto;
+}
+/*문서의 제목 부분*/
+header.headerstyle{
+  vertical-align:right;
+  background-color: black;
+  color:white;
+  margin:0px;
+  padding:5px;
+}
+/*문서의 요약표 디자인 부분 시작*/
+table.data{
+  text-align:center;
+  font-size:88%;
+  background:#F9F9F9;
+  border:1px solid #AAAAAA;
+  color:black;
+  clear:right;
+  float:right;
+  margin:0.5em 0 0.5em 1em;
+  padding:0.2em;
+  width:17em
+}
+td.adr{
+  text-align: center;
+  background: black;
+  color: white;
+}
+td.adr span{
+  color: white;
+}
+th{
+  background:gray;
+  color: white;
+  width: 220px;
+  text-align: center;
+}
+/*문서의 요약표 디자인 부분 끝*/
+/*문서의 목차*/
+div#index{
+  padding-right: 1em;
+  padding-left: 1em;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  border: 1px solid #AAAAAA;
+  background: #F9F9F9;
+  width: fit-content;
+  display: inline-block;
+}
+/*문서의 개요부분*/
+p#summary{
+  font-size: 1.5em;
+  word-break: break-all;
+  word-wrap: break-word;
+}

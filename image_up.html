@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!--사이트에 파비콘 적용-->
+	<link rel="shortcut icon" href="favicon.ico"/>
+  <title>이미지 업로드</title>
+  <!--부트스트랩을 위한 CDN 주소(부트스트랩css,jQuery,부트스트랩JavaScript)-->
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container" style="padding-top:15px">
+    <!--tab의 리스트-->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#file_up" aria-controls="home" role="tab" data-toggle="tab">파일으로</a></li>
+      <li role="presentation"><a href="#link_up" aria-controls="profile" role="tab" data-toggle="tab">인터넷주소로</a></li>
+    </ul>
+    <!--각 tab의 내부 시작-->
+    <div class="tab-content" style="padding-top:15px;">
+      <div role="tabpanel" class="tab-pane active" id="file_up">
+        <!--서버로 이미지 전송을 위한 form-->
+        <form action="image_up.php" id="upload" method='POST' enctype='multipart/form-data'>
+          <div class="form-group">
+            <label for="img_title">제목</label>
+            <input type="text" name="title" class="form-control" id="img_title" placeholder="파일제목">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputFile">파일 업로드</label>
+            <input type="file" id="imageFile" name='image' accept="image/gif,image/jpeg,image/png" onchange="return checkupimage(this);">
+            <p class="help-block">4MB이하 jpg(jpeg),png,gif확장자만 업로드 가능</p>
+          </div>
+          <div class="form-group">
+            <input type='submit' class="btn btn-default" value='이미지 업로드'>
+          </div>
+        </form>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="link_up">
+        <!--외부 이미지 이용하기 위한 마크업을 보여주기 위한 form-->
+        <form method='POST' enctype='multipart/form-data' onsubmit="return makelink();">
+          <div class="form-group">
+            <label for="img_title">이미지 주소</label>
+            <input type="text" class="form-control" id="img_link" placeholder="이미지 주소(예:http://examaple.com/ex.jpg)">
+          </div>
+          <div class="form-group">
+            <input type='submit' class="btn btn-default" value='이미지 삽입'>
+          </div>
+        </form>
+				<!--만들어진 마크업코드를 보여주기 위한 부분-->
+				<div class="up_result" display="none">
+					<div class="panel panel-success" id="img_result_panel">
+						<div class="panel-heading">
+							<h3 class="panel-title" id="img_result_title">아래코드를 붙여넣으세요(가로/세로 크기는 조절가능)</h3>
+						</div>
+						<div class="panel-body" id="img_result">
+						</div>
+					</div>
+				</div>
+      </div>
+    </div>
+		<!--각 tab의 내부 끝-->
+  </div>
+  <script>
+  var domEleArray = [$('#imageFile').clone()]; //파일업로드 초기화를 위해 초기 값 복사저장
+  $(".up_result").hide(); //결과창 숨김
+
+  function checkupimage(ojbFile) {
+    var maxsize = 4*1024*1024 //4MB사이즈 제한
+    var filesize = ojbFile.files[0].size; //첨부된파일의 크기 저장
+
+    if(maxsize < filesize){ //지정된 사이즈보다 클 경우
+      alert("사이즈가 너무 큽니다.");
+      domEleArray[1] = domEleArray[0].clone(true); //저장되어있던 초기 값을 복사
+      $('#imageFile').replaceWith(domEleArray[1]); //하여 현재값에 덮어씀
+    }else if(ojbFile.value.match(/\.(png|jpg|jpeg|gif)$/i) == null){ //허용되지 않은 확장자인 경우
+      alert("허용되지 않은 확장자 입니다.");
+      domEleArray[1] = domEleArray[0].clone(true); //저장되어있던 초기 값을 복사
+      $('#imageFile').replaceWith(domEleArray[1]); //하여 현재값에 덮어씀
+    }
+  }
+
+	function makelink() {
+		$(".up_result").show(); //결과창 나타남
+		$("#img_result").text("[외부사진 "+$("#img_link").val()+"|가로=300px|세로=300px]"); //삽입코드 출력
+		return false; //submit제출이 되지 않도록 함
+	}
+  </script>
+</body>
+</html>
